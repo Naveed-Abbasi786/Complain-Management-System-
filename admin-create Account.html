@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin-Sign in</title>
+  <!-- Style-->
+  <link rel="stylesheet" href="style.css">
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+</head>
+<style>
+  .form {
+    background-color: rgba(18, 76, 153, 0.212);
+  }
+
+  @media screen and (max-width:450px) {
+    .contaner {
+      width: 30rem !important;
+      height: 40rem;
+    }
+
+    .form {
+      width: 25rem !important;
+      height: 480px;
+    }
+  }
+
+  @media screen and (max-width:900px) {
+    .form {
+      margin-top: 7% !important;
+    }
+  }
+
+  @media screen and (max-width:480px) {
+    .form {
+      width: 25rem !important;
+      height: 530px !important;
+    }
+
+    #sign-up {
+      margin-left: 10% !important;
+    }
+  }
+</style>
+
+<body>
+  <div class="contaner">
+    <div class="form">
+      <h2>Create Account</h2>
+      <h3>Admin</h3>
+      <form id="Sign-in-form">
+        <input type="text" placeholder="Name" class="input-text" id="name">
+        <input type="email" placeholder="Email" class="input-text" id="email" required>
+        <input type="password" placeholder="Password" class="input-text" id="password" required>
+        <input type="button" value="Submit" id="Sumbit-btn" onclick="sign()">
+        <div id="sign-up">All Ready have an Account|<a href="sign  up admin.html" id="si">sign-up</a></div>
+        <div id="admin">Student Account|<a href="index.html" id="si">Student</a></div>
+      </form>
+    </div>
+  </div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3yLZAwBVmExHzjRyPfxdM0qTLdFqv0PU",
+      authDomain: "smit-project-2e795.firebaseapp.com",
+      databaseURL: "https://smit-project-2e795-default-rtdb.firebaseio.com",
+      projectId: "smit-project-2e795",
+      storageBucket: "smit-project-2e795.appspot.com",
+      messagingSenderId: "384148425800",
+      appId: "1:384148425800:web:772f4e6a6d0bbb5298dc7d",
+      measurementId: "G-88WEKMVCEX"
+    };
+    // Initialize Firebase
+    const fb = firebase.initializeApp(firebaseConfig);
+    console.log(fb.auth)
+    var database = firebase.database();
+    function sign() {
+      let email = document.getElementById('email').value
+      let pass = document.getElementById('password').value
+      firebase.auth().createUserWithEmailAndPassword(email, pass)
+        .then((userCredential) => {
+          // Signed in 
+          var user = userCredential.user;
+          window.location.assign("admin.html")
+          console.log(user)
+          alert('thanks for Sign in')
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorMessage)
+          alert(errorMessage)
+          // ..
+
+
+        });
+    }
+    let name = document.getElementById('name').value
+
+    obj = {
+      name: name,
+      email: email,
+      password: pass,
+    }
+    fb.database().ref("email/admin").push(obj);
+
+
+  </script>
+</body>
+
+</html>

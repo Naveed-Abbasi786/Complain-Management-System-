@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <!-- Responsive -->
+    <style>
+        @media screen and (max-width:450px) {
+            .contaner {
+                width: 30rem !important;
+                height: 38rem;
+            }
+
+            .form {
+                width: 25rem !important;
+                height: 33rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contaner">
+        <div class="form">
+            <h2>Create Account</h2>
+            <h3>Student</h3>
+            <form id="Sign-in-form">
+                <input type="text" placeholder="Name" class="input-text" id="name" required>
+                <input type="email" placeholder="Email" class="input-text" id="email"  required>
+                <input type="password" placeholder="Password" class="input-text" id="password" required>
+                <input type="button" value="Submit" id="Sumbit-btn" onclick="sign()">
+                <div id="sign-up">All Ready have an Account|<a href="sign-up.html" id="si">sign-up</a></div>
+                <div id="admin">Admin Account|<a href="sign  up admin.html" id="ai">Admin</a></div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

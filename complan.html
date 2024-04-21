@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complain</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <style>
+        #Sumbit-btn-2 {
+            margin-top: 5%;
+        }
+
+        /*Responsive */
+        @media screen and (max-width:500px) {
+            #complan-contaner {
+                width: 25rem !important;
+                height: 560px !important;
+                margin-top: 10% !important;
+            }
+
+            .contaner {
+                width: 32rem !important;
+                height: 50rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contaner">
+        <div id="complan-contaner">
+            <div class="nav">
+                <figcaption class="chek" onclick="chek()">
+                    <img src="check.png" alt="">
+                    <figure id="fgr">Check</figure>
+                </figcaption>
+                <div class="smit">SmiT Complain</div>
+                <figcaption class="sts" onclick="stats()">
+                    <img src="status.png" alt="status">
+                    <figure id="st">Status</figure>
+                </figcaption>
+            </div>
+            <form action="" class="form-comp">
+                <input type="text" class="input-text" placeholder="Enter your Name" id="name" required>
+                <input type="text" class="input-text" placeholder="Enter your father Name" id="father" required>
+                <input type="text" class="input-text" placeholder="Enter your Course" id="course" required>
+                <input type="text" class="input-text" placeholder="Enter your id No" id="batch" required>
+                <!-- <input type="" class="input-text" placeholder="Enter your Complain" id="com"> -->
+                <textarea class="input-text" id="com" placeholder="Enter your Complain" required></textarea>
+                <input type="submit" value="Submit" id="Sumbit-btn-2" onclick="sub()">
+            </form>
+        </div>
+
+
+
+
+
+        <script src="script.js"></script>
+</body>
+
+</html>

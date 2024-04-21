@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-Status</title>
+    <!-- Style-->
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <style>
+        .form {
+            width: 400px;
+            height: 410px;
+            margin-top: 10%;
+        }
+
+        #sign-up {
+            margin-top: 7%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 45px;
+        }
+
+        h1>span {
+            color: #04AA6D;
+        }
+
+        h3 {
+            margin-top: 23%;
+            font-size: 35px;
+        }
+
+        h2 {
+            margin-top: -1%;
+        }
+
+        #Sumbit-btn {
+            width: 28%;
+            height: 5vh;
+            font-size: 18px;
+            letter-spacing: 1.8px;
+            border-radius: 20px;
+            border: none;
+            margin: 2% 4% 1% 34%;
+            background: #00ccff;
+            color: white;
+        }
+
+        @media screen and (max-width:650px) {
+            .contaner {
+                width: 35rem !important;
+                height: 45rem !important;
+            }
+
+            .form {
+                width: 20rem !important;
+                height: 380px !important;
+                margin-top: 26% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contaner">
+        <div class="form">
+            <h1>Check-<span>Status</span></h1>
+            <h3>Your Complain Status</h3>
+            <h2 id="complaintStatus">Panding</h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

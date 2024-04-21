@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Admin</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <!-- script -->
+    <script src="script.js"></script>
+    <style>
+        .form {
+            width: 400px;
+            height: 430px;
+            margin-top: 11%;
+            background-color: rgba(18, 76, 153, 0.212);
+        }
+
+        #sign-up {
+            margin-top: 3%;
+        }
+
+        /* Resposive */
+        @media screen and (max-width:450px) {
+            .contaner {
+                width: 30rem !important;
+                height: 50rem;
+            }
+
+            .form {
+                width: 25rem !important;
+                margin-top: 25% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contaner">
+        <div class="form">
+            <h2>Sign Up</h2>
+            <h3>Admin</h3>
+            <form id="Sign-in-form">
+                <input type="email" placeholder="Email" class="input-text" id="email" required />
+                <input type="password" placeholder="Password" class="input-text" id="password" required />
+                <input type="button" value="Submit" id="Sumbit-btn" onclick="sin_u()" />
+            </form>
+            <div id="sign-up">
+                All Ready have an Account|<a href="index.html" id="si">sign-in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sin_u() {
+            let email = document.getElementById("email").value;
+            let pass = document.getElementById("password").value;
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, pass)
+                .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+                    window.location.assign("admin.html");
+                    console.log(user);
+                    alert("go to Admin Panel");
+                    // ...
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorMessage);
+                });
+        }
+    </script>
+</body>
+
+</html>
