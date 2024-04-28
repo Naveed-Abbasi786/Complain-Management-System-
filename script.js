@@ -15,20 +15,6 @@ var database = firebase.database();
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Function to change input field color based on content
-  var inputs = document.getElementsByTagName('input');
-  for (var i = 0; i < inputs.length; i++) {
-    inputs[i].addEventListener('input', function() {
-      if (this.value !== '') {
-        this.style.color = '#00ccff'; // Change to desired color when not empty
-      } else {
-        this.style.color = ''; // Reset to default color when empty
-      }
-    });
-  }
-
-  // Additional functions
-  fetchComplaints();
   fetchComplaintStatus();
 });
 
@@ -62,13 +48,14 @@ function sign() {
       var user = userCredential.user;
       window.location.assign("sign-up.html");
       console.log(user);
-      alert("thanks for Sign in");
+      alert("Thanks for Sign in");
       // ...
     })
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
       // alert("plis Check the Correct Email,Password")
+      alert(errorMessage)
       console.log(errorMessage);
       // ..
     });
