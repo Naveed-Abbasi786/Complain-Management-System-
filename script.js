@@ -68,7 +68,7 @@ function sign() {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
-      alert("plis Check the Correct Email,Password")
+      // alert("plis Check the Correct Email,Password")
       console.log(errorMessage);
       // ..
     });
