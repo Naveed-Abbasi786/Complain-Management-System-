@@ -171,117 +171,97 @@ function stats() {
   window.location.assign("Status.html");
 }
 
-// Complain panel Admin
+// admin panel
 
-function fetchComplaints() {
-  firebase.database().ref("complain").on("child_added", (snapshot) => {
-    let data = snapshot.val();
-    let table = document.getElementById("table");
-    if (!table) {
-      console.error("");
-      return; // Exit the function if table element is not found
-    }
+// Fetch complaints and display them in the table
+firebase.database().ref("complain").on("child_added", (snapshot) => {
+  let complaintId = snapshot.key;
+  let data = snapshot.val();
 
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    let td3 = document.createElement("td"); 
-    let td4 = document.createElement("td");
-    let td5 = document.createElement("td");
-    let td6 = document.createElement("td");
-    let td7 = document.createElement("td");
+  // Create table row
+  let table = document.getElementById("table");
+  if (!table) {
+    console.error("Table element not found");
+    return;
+  }
 
-    td1.textContent = data.name;
-    td2.textContent = data.father;
-    td3.textContent = data.course;
-    td4.textContent = data.batch;
-    td5.textContent = data.complain;
+  let tr = document.createElement("tr");
+  tr.id = complaintId;
 
-    let solvedButton = document.createElement("button");
-    solvedButton.textContent = "Solved";
-    solvedButton.className = "Solved";
-    solvedButton.onclick = function() {
-      let complaintId = snapshot.key;
-      let status = "Solved";
-      updateStatus(complaintId, status);
-      if (localStorage.getItem(complaintId) !== status) {
-        solvedButton.style.backgroundColor = "aqua";
-        localStorage.setItem(complaintId, status);
-        alert("Solved");
-      } else {
-        alert("Already Solved");
-      }
-    };
+  // Creating table cells and buttons
+  let td1 = document.createElement("td");
+  let td2 = document.createElement("td");
+  let td3 = document.createElement("td");
+  let td4 = document.createElement("td");
+  let td5 = document.createElement("td");
+  let td6 = document.createElement("td");
+  let td7 = document.createElement("td");
 
-    let rejectedButton = document.createElement("button");
-    rejectedButton.textContent = "Rejected";
-    rejectedButton.className = "Rejected";
-    rejectedButton.onclick = function() {
-      let complaintId = snapshot.key;
-      let status = "Rejected";
-      updateStatus(complaintId, status);
-      if (localStorage.getItem(complaintId) !== status) {
-        rejectedButton.style.backgroundColor = "red";
-        localStorage.setItem(complaintId, status);
-        alert("Rejected");
-      } else {
-        alert("Already Rejected");
-      }
-    };
+  td1.textContent = data.name;
+  td2.textContent = data.father;
+  td3.textContent = data.course;
+  td4.textContent = data.batch;
+  td5.textContent = data.complain;
 
-    td6.appendChild(solvedButton);
-    td7.appendChild(rejectedButton);
+  let solvedButton = document.createElement("button");
+  solvedButton.textContent = "Solved";
+  solvedButton.className = "Solved";
+  solvedButton.onclick = function() {
+    let status = "Solved";
+    updateStatus(complaintId, status, solvedButton);
+  };
 
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-    tr.appendChild(td5);
-    tr.appendChild(td6);
-    tr.appendChild(td7);
+  let rejectedButton = document.createElement("button");
+  rejectedButton.textContent = "Rejected";
+  rejectedButton.className = "Rejected";
+  rejectedButton.onclick = function() {
+    let status = "Rejected";
+    updateStatus(complaintId, status, rejectedButton);
+  };
 
-    table.appendChild(tr); // Append the created row to the table
-  });
-}
- 
+  td6.appendChild(solvedButton);
+  td7.appendChild(rejectedButton);
 
-function updateStatus(complaintId, status) {
+  // Appending cells to row
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+  tr.appendChild(td5);
+  tr.appendChild(td6);
+  tr.appendChild(td7);
+
+  table.appendChild(tr);
+
+  // Store the complaint ID in local storage to mark it as added
+  localStorage.setItem(complaintId, true);
+});
+
+// Function to update complaint status
+function updateStatus(complaintId, status, button) {
   firebase.database().ref("complain/" + complaintId).update({
-      status: status
+    status: status
   }).then(() => {
-      console.log("Complaint status updated successfully.");
+    console.log("Complaint status updated successfully.");
+    button.disabled = true;
+    button.style.opacity = 0.5;
   }).catch((error) => {
-      console.error("Error updating complaint status:", error);
+    console.error("Error updating complaint status:", error);
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetchComplaints();
-});
-
-
-
-// Check Status
-
-// JavaScript
-// Function to fetch and display complaint status for the entered email address
-// Function to fetch and display complaint status for the entered email address
-// Function to fetch and display complaint status for the entered name
+// Function to fetch and display complaint status
 function fetchComplaintStatus() {
-  firebase.database().ref("complain").on("value", (snapshot) => {
-    let complaintStatus = "";
-    snapshot.forEach((childSnapshot) => {
-      let name = childSnapshot.val().name;
-      let status = childSnapshot.val().status;
-      if (status) {
-        complaintStatus += `<p>${name} ${status}</p>`;
-      }
-    });
-    document.getElementById("complaintStatus").innerHTML = complaintStatus;
+  firebase.database().ref("complain").on("child_added", (snapshot) => {
+    const { name, status } = snapshot.val();
+    if (status) {
+     let compl =document.getElementById("complaintStatus");
+     compl.innerHTML = `<p>${name} ${status}</p>`;
+    }
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetchComplaintStatus();
-});
+document.addEventListener("DOMContentLoaded", fetchComplaintStatus);
+
+
 
